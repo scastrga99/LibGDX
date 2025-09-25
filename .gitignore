@@ -1,0 +1,40 @@
+# Java / Gradle / LibGDX ignore
+
+# Gradle
+.gradle/
+build/
+*/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IntelliJ / Eclipse / VSCode
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+.vscode/
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs / temp
+*.log
+hs_err_pid*
+
+# LibGDX generated desktop distributions
+desktop/build/distributions/
+
+# Local run configs
+run/
+
+# Ignore compiled classes if any accidental
+core/bin/
+desktop/bin/
+
+# Cache / font generation intermediates (if any)
+*.tmphash

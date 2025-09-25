@@ -1,0 +1,36 @@
+ext {
+    gdxVersion = '1.12.1'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+}
+
+tasks.register('printInfo') {
+    doLast {
+        println "Java toolchain: " + org.gradle.jvm.toolchain.JavaLanguageVersion.of(17)
+        println "LibGDX version: ${gdxVersion}"
+    }
+}
+
+// Opcional: fija versión del wrapper que generaremos
+tasks.named('wrapper') {
+    gradleVersion = '8.9'
+    distributionType = Wrapper.DistributionType.BIN
+}

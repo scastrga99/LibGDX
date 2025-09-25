@@ -1,0 +1,19 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':core')
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:${gdxVersion}"
+    runtimeOnly   "com.badlogicgames.gdx:gdx-platform:${gdxVersion}:natives-desktop"
+    runtimeOnly   "com.badlogicgames.gdx:gdx-freetype-platform:${gdxVersion}:natives-desktop"
+}
+
+application {
+    mainClass = 'com.samue.game.DesktopLauncher'
+}
+
+tasks.named('run') {
+    // Usa los assets del módulo core como carpeta de trabajo
+    workingDir = project(':core').file('assets')
+}

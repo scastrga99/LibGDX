@@ -37,14 +37,20 @@ public class PyramidRenderer {
                 shapes.setColor(exposed ? Color.valueOf("#FFFFFF") : Color.valueOf("#E8E8E8"));
                 shapes.rect(x, y, layout.cardW, layout.cardH);
 
-                shapes.setColor(Color.valueOf("#222222"));
+                // Borde base: celeste para expuestas, gris oscuro para bloqueadas
                 float t = 2f;
+                if (exposed) {
+                    shapes.setColor(Color.valueOf("#39baf7")); // celeste
+                } else {
+                    shapes.setColor(Color.valueOf("#444444"));
+                }
                 shapes.rectLine(x, y, x + layout.cardW, y, t);
                 shapes.rectLine(x, y, x, y + layout.cardH, t);
                 shapes.rectLine(x + layout.cardW, y, x + layout.cardW, y + layout.cardH, t);
                 shapes.rectLine(x, y + layout.cardH, x + layout.cardW, y + layout.cardH, t);
 
                 if (sel.r == r && sel.c == c) {
+                    // Borde de selección sobrepone al borde base
                     shapes.setColor(Color.YELLOW);
                     float ht = 3f;
                     shapes.rectLine(x - 1, y - 1, x + layout.cardW + 1, y - 1, ht);
@@ -124,9 +130,16 @@ public class PyramidRenderer {
     float tx = layout.restartBounds.x + (layout.restartBounds.width - glyph.width) * 0.5f;
     float ty = layout.restartBounds.y + (layout.restartBounds.height + glyph.height) * 0.5f - 4f; // ajuste fino
     font.draw(batch, glyph, tx, ty);
-        batch.end();
-    }
-
+    // Contador de puntuación (restaurado)
+    font.setColor(Color.WHITE);
+    String scoreText = "Puntos: " + board.score;
+    glyph.setText(font, scoreText);
+    // Situamos el score a la izquierda de la pirámide, alineado con la primera carta
+    float scoreX = layout.rowStartX(0);
+    float scoreY = layout.rowY(0) + layout.cardH + glyph.height + 6f;
+    font.draw(batch, glyph, scoreX, scoreY);
+    batch.end();
+}
 
     private void drawRectBorder(float x, float y, float w, float h, float t) {
         shapes.rectLine(x, y, x + w, y, t);

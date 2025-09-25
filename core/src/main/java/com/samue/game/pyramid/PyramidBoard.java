@@ -13,6 +13,7 @@ public class PyramidBoard {
     public final List<Card> stock  = new ArrayList<>();            // mazo (robar)
     public final List<Card> waste  = new ArrayList<>();            // volteadas del mazo (visible)
     public final List<Card> discard = new ArrayList<>();           // cartas eliminadas (sumaron 13)
+    public int score = 0;                                          // puntuación acumulada
 
     public void dealNewGame(Deck deck, long seed) {
         deck.shuffle(seed);
@@ -20,6 +21,7 @@ public class PyramidBoard {
         stock.clear();
         waste.clear();
         discard.clear();
+        score = 0;
 
         for (int r = 0; r < ROWS; r++) {
             var row = new ArrayList<Card>(r + 1);
@@ -53,7 +55,10 @@ public class PyramidBoard {
     // Helpers de descarte
     public Card removeAndDiscardAt(int r, int c) {
         Card card = removeAt(r, c);
-        if (card != null) discard.add(card);
+        if (card != null) {
+            discard.add(card);
+            score += card.value();
+        }
         return card;
     }
 
@@ -75,7 +80,10 @@ public class PyramidBoard {
 
     public Card discardWasteTop() {
         Card c = popWaste();
-        if (c != null) discard.add(c);
+        if (c != null) {
+            discard.add(c);
+            score += c.value();
+        }
         return c;
     }
 
